@@ -105,16 +105,16 @@ const Header = ()=>{
             <SportseeNav>
             <ul>
           <li>
-            <Link to="/">Accueil</Link> {/* Home link */}
+            <Link to="/home">Accueil</Link> {/* Home link */}
           </li>
           <li>
-            <Link to="/Propos">Profile</Link> {/* About link */}
+            <Link to="/profile">Profile</Link> {/* About link */}
           </li>
           <li>
-            <Link to="/Propos">Réglage</Link> {/* About link */}
+            <Link to="/reglage">Réglage</Link> {/* About link */}
           </li>
           <li>
-            <Link to="/Propos">Communauté</Link> {/* About link */}
+            <Link to="/communaute">Communauté</Link> {/* About link */}
           </li>
         </ul>
             </SportseeNav>

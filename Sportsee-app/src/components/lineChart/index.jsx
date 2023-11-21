@@ -22,6 +22,14 @@ const StyledCustomTooltip = styled.div`
   padding: 5px;
 `;
 
+const COLORS = {
+  WHITE: '#ffffff',
+  PRIMARY_TEXT: 'rgba(255, 255, 255, 0.5)',
+  PRIMARY_FILL: 'rgba(0, 0, 0, 0.5)',
+  CHART_FILL: 'url(#colorUv)',
+  CHART_STROKE: '#ffffff',
+};
+
 // Map numeric day values to French days of the week
 const jourMap = {
     1: 'L',
@@ -48,7 +56,7 @@ const jourMap = {
 
 function AverageSessionDuration({ userId }) {
     const [sessionData, setSessionData] = useState([]);
-    const [referenceArea, setReferenceArea] = useState(null);
+    const [hoverIndex, setHoverIndex] = useState(null);
 
     useEffect(() => {
         // Fetch user session data using the API
@@ -70,11 +78,8 @@ function AverageSessionDuration({ userId }) {
           });
       }, [userId]);
 
-      const handlePointClick = (index) => {
-        console.log(index);
-        // Update the reference area based on the clicked point
-        setReferenceArea({ x1: 0, x2: index, fill: 'rgba(0, 0, 0, 0.5)', fillOpacity: 1 });
-        
+      const handleMouseMove = (activeIndex) => {
+        setHoverIndex(activeIndex);
       };
   
     return (
@@ -84,12 +89,15 @@ function AverageSessionDuration({ userId }) {
           right: 30,  // Add padding to the right
           bottom: 20, // Add padding to the bottom
           left: 30,   // Add padding to the left
-        }}>
+        }}
+        onMouseMove={(e) => handleMouseMove(e.activeTooltipIndex)}
+        onMouseLeave={() => setHoverIndex(null)}
+        >
               <defs>
           <linearGradient id="colorUv" x1="1" y1="0" x2="0" y2="0">
-            <stop offset="45%" stopColor="#ffffff" stopOpacity={0.8}/>
-            <stop offset="100%" stopColor="#ffffff" stopOpacity={0}/>
-          </linearGradient>
+          <stop offset="45%" stopColor={COLORS.WHITE} stopOpacity={0.8} />
+          <stop offset="100%" stopColor={COLORS.WHITE} stopOpacity={0} />
+        </linearGradient>
         </defs>
               <foreignObject x={20} y={40} width="200" height="100">
   <div xmlns="http://www.w3.org/1999/xhtml" style={{ fontWeight: 400, color: 'rgba(255, 255, 255, 0.5)' }}>
@@ -104,7 +112,19 @@ function AverageSessionDuration({ userId }) {
   axisLine={false} hide />
        
        <Tooltip content={<CustomTooltip />} cursor={false} />
-      {referenceArea && <ReferenceArea {...referenceArea} />}
+
+       {hoverIndex !== null && hoverIndex < sessionData.length - 1 && (
+          <ReferenceArea
+            x1={hoverIndex}
+            x2={hoverIndex + 1}
+            fill="rgba(0, 0, 0, 0.3)"
+            fillOpacity={1}
+            ifOverflow="extendDomain"
+            y1={0} // Set the y1 to the minimum y-value within the range
+            y2={100} // Set the y2 to the maximum y-value within the range
+          />
+        )}
+
       <Line
   type="monotone"
   dataKey="sessionLength"

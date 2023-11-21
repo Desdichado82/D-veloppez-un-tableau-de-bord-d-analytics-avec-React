@@ -1,6 +1,7 @@
 
 import styled from 'styled-components';
 import 'material-icons'; // Import the material-icons package
+import { useParams } from 'react-router-dom';
 import Greeting from '/src/components/greetings'; // Import the Greeting component
 import DailyActivities from '/src/components/activities';
 import AverageSessionDuration from '/src/components/lineChart';
@@ -73,8 +74,10 @@ const SecondContainer = styled.div`
 
 
 const ProfilePage = ()=>{
-    // Define the userId based on your route or user selection
-  const userId = 18; // Replace with your actual userId
+  // Define the userId based on your route or user selection
+  const { id } = useParams();
+  const userId = id || 18; // Use the route parameter if present, otherwise default to 18
+
     return(
        
             <Dashboard>

@@ -5,6 +5,9 @@ import Header from '../header';
 import Navigation from'../navigation';
 import '/src/utilities/global.css'; // Import the global CSS file
 import ProfilePage from '/src/pages/profile';
+import HomePage from '/src/pages/home';
+
+
 
 
 const root = createRoot(document.getElementById('root'));
@@ -16,7 +19,9 @@ root.render(
     <Navigation/>
       <Routes>
         <Route path="/" element={<Outlet/>}>
-        <Route index element={<ProfilePage />} />
+        <Route path ="/profile/:id"  element={<ProfilePage />} />
+        <Route path="/home" element={<HomePage />} />
+        route
         </Route>
       </Routes>
     </div>

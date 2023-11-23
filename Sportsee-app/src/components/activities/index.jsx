@@ -25,18 +25,22 @@ const CustomTooltip = ({ active, payload }) => {
 
 
 function DailyActivities({ userId }) {
+    // Use the useState hook to create a state variable for activity data.
   const [activityData, setActivityData] = useState([]);
-
+// Use the useEffect hook to fetch user activity data when the component mounts or the userId changes.
   useEffect(() => {
     // Fetch user activity data
     fetchUserActivity(userId)
+     // Check if the data is in the expected format
       .then((data) => {
         if (data && data.data.sessions && Array.isArray(data.data.sessions)) {
+           // Map the session data to a format suitable for display
           const formattedData = data.data.sessions.map((session, index) => ({
             day: (index + 1).toString(), // Convert index to a sequential day
             kilogram: session.kilogram,
             calories: session.calories,
           }));
+           // Update the activityData state variable with the formatted data
           setActivityData(formattedData);
         } else {
           console.error('Data format is incorrect:', data);
@@ -45,7 +49,7 @@ function DailyActivities({ userId }) {
       .catch((error) => {
         console.error('Error fetching user activity data:', error);
       });
-  }, [userId]);
+  }, [userId]); // The effect depends on the userId prop
 
   return (
     <ResponsiveContainer width="100%" height="100%">
@@ -57,7 +61,7 @@ function DailyActivities({ userId }) {
         <YAxis orientation="right" dataKey="calories" />
         <CartesianGrid strokeDasharray="3 3" />
         <Tooltip className="custom-tooltip" content={CustomTooltip} />
-        <Legend verticalAlign="top" align="right" height={40} />
+        <Legend verticalAlign="top" align="right" height={40} iconType="circle" />
         <Bar dataKey="kilogram" fill="#282D30" barSize={12} radius={[5, 5, 0, 0]} />
         <Bar dataKey="calories" fill="#E60000" barSize={12} radius={[5, 5, 0, 0]} />
       </RechartsBarChart>

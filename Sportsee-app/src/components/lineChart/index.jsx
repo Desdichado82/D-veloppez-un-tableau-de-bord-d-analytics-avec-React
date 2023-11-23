@@ -41,18 +41,24 @@ const jourMap = {
     7: 'D',
   };
 
-  function CustomTooltip({ active, payload }) {
-    if (active && payload && payload.length) {
-      const sessionLength = payload[0].value;
-      return (
-        <StyledCustomTooltip>
-          {`${sessionLength} mins`}
-        </StyledCustomTooltip>
-      );
-    }
-  
-    return null;
+ // This function defines a custom tooltip for a chart.
+function CustomTooltip({ active, payload }) {
+  // Check if the tooltip is active and if there is payload data.
+  if (active && payload && payload.length) {
+    // Extract the session length from the first payload item.
+    const sessionLength = payload[0].value;
+
+    // Return a styled tooltip component with the session length.
+    return (
+      <StyledCustomTooltip>
+        {`${sessionLength} mins`}
+      </StyledCustomTooltip>
+    );
   }
+
+  // If the tooltip is not active or there is no payload data, return null.
+  return null;
+}
 
 function AverageSessionDuration({ userId }) {
     const [sessionData, setSessionData] = useState([]);

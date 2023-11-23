@@ -63,7 +63,7 @@ const data = [
 
   return (
     <ResponsiveContainer width="100%" height={265} style={{ backgroundColor: '#FBFBFB' ,borderRadius: 5}}>
-     
+      
       <RadialBarChart
      
      cx={135}
@@ -77,6 +77,11 @@ const data = [
      
      
    >
+    <foreignObject x={15} y={20} width="200" height="100">
+  <div xmlns="http://www.w3.org/1999/xhtml" style={{ fontWeight: 900, color: 'black' }}>
+    Score
+  </div>
+</foreignObject>
       
      <RadialBar
        minAngle={15}

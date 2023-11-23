@@ -24,7 +24,7 @@ function Greeting({ userId }) {
         <p>Loading user data...</p>
       )}
 
-      <span>Félicitation ! Vous avez explosé vos objectifs hier 👏</span>
+      <span>Félicitations! Vous avez explosé vos objectifs hier 👏</span>
     </div>
   );
 }

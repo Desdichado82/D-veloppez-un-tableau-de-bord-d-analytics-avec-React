@@ -13,19 +13,16 @@ import HomePage from '/src/pages/home';
 const root = createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Router>
+  <Router>
     <Header />
     <div className="main-container">
-    <Navigation/>
+      <Navigation />
       <Routes>
-        <Route path="/" element={<Outlet/>}>
-        <Route path ="/profile/:id"  element={<ProfilePage />} />
         <Route path="/home" element={<HomePage />} />
-        route
-        </Route>
+        <Route path="/profile/:id" element={<ProfilePage />} />
+        <Route path="/*" element={<Navigate to="/home" />} />
       </Routes>
     </div>
-     
-    </Router>
-  </React.StrictMode>,
+  </Router>
+</React.StrictMode>
 )

@@ -60,93 +60,90 @@ function CustomTooltip({ active, payload }) {
   return null;
 }
 
-function AverageSessionDuration({ userId }) {
-    const [sessionData, setSessionData] = useState([]);
-    const [hoverIndex, setHoverIndex] = useState(null);
+function AverageSessionDuration({ data }) {
+  const [hoverIndex, setHoverIndex] = useState(null);
 
-    useEffect(() => {
-        // Fetch user session data using the API
-        fetchUserSession(userId)
-          .then((data) => {
-           
-            if (data && data.data && Array.isArray(data.data.sessions)) {
-              const formattedData = data.data.sessions.map((session) => ({
-                day: jourMap[session.day], // Map numeric day to French day
-                sessionLength: session.sessionLength,
-              }));
-              setSessionData(formattedData);
-            } else {
-              console.error('Data format is incorrect:', data);
-            }
-          })
-          .catch((error) => {
-            console.error('Error fetching user session data:', error);
-          });
-      }, [userId]);
+  // Check if the data prop is in the expected format
+  if (data && data.data && Array.isArray(data.data.sessions)) {
+    // Map the session data to a format suitable for display
+    const formattedData = data.data.sessions.map((session) => ({
+      day: jourMap[session.day], // Map numeric day to French day
+      sessionLength: session.sessionLength,
+    }));
 
-      const handleMouseMove = (activeIndex) => {
-        setHoverIndex(activeIndex);
-      };
-  
+    const handleMouseMove = (activeIndex) => {
+      setHoverIndex(activeIndex);
+    };
+
     return (
-      <ResponsiveContainer width="100%"  height="100%">
-        <LineChart  data={sessionData}  style={{ backgroundColor: '#E60000',borderRadius: 5 }} margin={{
-          top: 20,    // Add padding to the top
-          right: 30,  // Add padding to the right
-          bottom: 20, // Add padding to the bottom
-          left: 30,   // Add padding to the left
-        }}
-        onMouseMove={(e) => handleMouseMove(e.activeTooltipIndex)}
-        onMouseLeave={() => setHoverIndex(null)}
+      <ResponsiveContainer width="100%" height="100%">
+        <LineChart
+          data={formattedData}
+          style={{ backgroundColor: '#E60000', borderRadius: 5 }}
+          margin={{
+            top: 20, // Add padding to the top
+            right: 30, // Add padding to the right
+            bottom: 20, // Add padding to the bottom
+            left: 30, // Add padding to the left
+          }}
+          onMouseMove={(e) => handleMouseMove(e.activeTooltipIndex)}
+          onMouseLeave={() => setHoverIndex(null)}
         >
-              <defs>
-          <linearGradient id="colorUv" x1="1" y1="0" x2="0" y2="0">
-          <stop offset="45%" stopColor={COLORS.WHITE} stopOpacity={0.8} />
-          <stop offset="100%" stopColor={COLORS.WHITE} stopOpacity={0} />
-        </linearGradient>
-        </defs>
-              <foreignObject x={20} y={40} width="200" height="100">
-  <div xmlns="http://www.w3.org/1999/xhtml" style={{ fontWeight: 400, color: 'rgba(255, 255, 255, 0.5)' }}>
-    Durée moyenne des sessions
-  </div>
-</foreignObject>
+          <defs>
+            <linearGradient id="colorUv" x1="1" y1="0" x2="0" y2="0">
+              <stop offset="45%" stopColor={COLORS.WHITE} stopOpacity={0.8} />
+              <stop offset="100%" stopColor={COLORS.WHITE} stopOpacity={0} />
+            </linearGradient>
+          </defs>
+          <foreignObject x={20} y={40} width="200" height="100">
+            <div xmlns="http://www.w3.org/1999/xhtml" style={{ fontWeight: 400, color: 'rgba(255, 255, 255, 0.5)' }}>
+              Durée moyenne des sessions
+            </div>
+          </foreignObject>
 
-        
-        <XAxis dataKey="day" axisLine={{ stroke: 'transparent' }} tick={{ fill: '#ffff' }} tickLine={{ display: 'none' }}  />
-        <YAxis  domain={[0, 100]}
-  ticks={[0,5,10,15,20,25,30,35,40, 45,50]}
-  axisLine={false} hide />
-       
-       <Tooltip content={<CustomTooltip />} cursor={false} />
-
-       {hoverIndex !== null && hoverIndex < sessionData.length - 1 && (
-          <ReferenceArea
-            x1={hoverIndex}
-            x2={hoverIndex + 1}
-            fill="rgba(0, 0, 0, 0.3)"
-            fillOpacity={1}
-            ifOverflow="extendDomain"
-            y1={0} // Set the y1 to the minimum y-value within the range
-            y2={100} // Set the y2 to the maximum y-value within the range
+          <XAxis dataKey="day" axisLine={{ stroke: 'transparent' }} tick={{ fill: '#ffff' }} tickLine={{ display: 'none' }} />
+          <YAxis
+            domain={[0, 100]}
+            ticks={[0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50]}
+            axisLine={false}
+            hide
           />
-        )}
 
-      <Line
-  type="monotone"
-  dataKey="sessionLength"
-  fill='none'
-  strokeWidth={3}
-  stroke="url(#colorUv)"
-  dot={(props) =>
-    props.active ? (
-      <circle r={6} fill="#FFFFFF" stroke="none" strokeWidth={2} onClick={() => handlePointClick(props.index)} />
-    ) : null
-  }
-/>
-      </LineChart>
+          <Tooltip content={<CustomTooltip />} cursor={false} />
+
+          {hoverIndex !== null && hoverIndex < formattedData.length - 1 && (
+            <ReferenceArea
+              x1={hoverIndex}
+              x2={hoverIndex + 1}
+              fill="rgba(0, 0, 0, 0.3)"
+              fillOpacity={1}
+              ifOverflow="extendDomain"
+              y1={0} // Set the y1 to the minimum y-value within the range
+              y2={100} // Set the y2 to the maximum y-value within the range
+            />
+          )}
+
+          <Line
+            type="monotone"
+            dataKey="sessionLength"
+            fill="none"
+            strokeWidth={3}
+            stroke="url(#colorUv)"
+            dot={(props) =>
+              props.active ? (
+                <circle r={6} fill="#FFFFFF" stroke="none" strokeWidth={2} onClick={() => handlePointClick(props.index)} />
+              ) : null
+            }
+          />
+        </LineChart>
       </ResponsiveContainer>
-
     );
+  } else {
+    console.error('Data format is incorrect:', data);
+    return null;
   }
-  
-  export default AverageSessionDuration;
+}
+
+
+
+export default AverageSessionDuration;

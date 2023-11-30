@@ -1,36 +1,20 @@
-import PropTypes from 'prop-types';
-import { useState, useEffect } from 'react';
-import { fetchUserData } from '../../services/api';
+
+
 import Card from '/src/components/card';
 
-const KeyUserData = ({ userId }) => {
-    const [userData, setUserData] = useState(null);
-  
-    useEffect(() => {
-      // Fetch user data using the API
-      fetchUserData(userId)
-        .then((data) => {
-          if (data && data.data && data.data.keyData) {
-            setUserData(data.data.keyData);
-          } else {
-            console.error('Data format is incorrect:', data);
-          }
-        })
-        .catch((error) => {
-          console.error('Error fetching user data:', error);
-        });
-    }, [userId]);
-  
+const KeyUserData = ({ data }) => {
+  // Check if the data prop is in the expected format
+  if (data && data.data.keyData && typeof data.data.keyData === 'object') {
+    // Pass the keyData object to the Card component
     return (
       <div>
-       
-        <Card keyData={userData} />
+        <Card keyData={data.data.keyData} />
       </div>
     );
-  };
-  
-  export default KeyUserData;
+  } else {
+    console.error('Data format is incorrect:', data);
+    return null;
+  }
+};
 
-
-
-
+export default KeyUserData;

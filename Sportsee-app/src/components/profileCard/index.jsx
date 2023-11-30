@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import 'material-icons'; // Import the material-icons package
 
 // Styled components for the profile card
@@ -49,6 +50,17 @@ const ProfileCard = ({ data, onClick }) => {
         </CardContent>
       </CardContainer>
     );
+  };
+
+  ProfileCard.propTypes = {
+    data: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      profile: PropTypes.string.isRequired,
+      firstName: PropTypes.string.isRequired,
+      lastName: PropTypes.string.isRequired,
+      age: PropTypes.number.isRequired,
+    }).isRequired,
+    onClick: PropTypes.func,
   };
   
   export default ProfileCard;

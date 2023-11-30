@@ -1,7 +1,7 @@
 
 import styled from 'styled-components';
 import 'material-icons'; // Import the material-icons package
-import { useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import Greeting from '/src/components/greetings'; // Import the Greeting component
 import DailyActivities from '/src/components/activities';
 import AverageSessionDuration from '/src/components/lineChart';
@@ -73,40 +73,34 @@ const SecondContainer = styled.div`
 
 
 
-const ProfilePage = ()=>{
-  // Define the userId based on your route or user selection
-  const { id } = useParams();
-  const userId = id || 18; // Use the route parameter if present, otherwise default to 18
-
-    return(
-       
-            <Dashboard>
-              <TopSection>
-                
-                <Greeting userId={userId} />
-               
-              </TopSection>
-            <SecondSection>
-            <FirstContainer>
-            <SubContainer>
-             <DailyActivities userId={userId}></DailyActivities>
-            </SubContainer>
-            <SubContainer>
-           <AverageSessionDuration userId={userId}></AverageSessionDuration>
-           <UserPerformanceRadarChart userId={userId}></UserPerformanceRadarChart>
-           <ScoreChart  userId={userId}></ScoreChart>
-            </SubContainer>
-          </FirstContainer>
-          <SecondContainer>
-           <KeyUserData userId={userId}></KeyUserData>
-          </SecondContainer>
-            </SecondSection>
-            </Dashboard>
-       
-       
-
-       
-    );
-}
+const ProfilePage = () => {
+  // Get the location object from the useLocation hook
+  const location = useLocation();
+  // Get the data from the state object
+  const { userData, userActivity, userSession, userPerformance } = location.state;
+  // Use the data to render the profile page
+  return (
+    <Dashboard>
+      <TopSection>
+        <Greeting data={userData} />
+      </TopSection>
+      <SecondSection>
+        <FirstContainer>
+          <SubContainer>
+            <DailyActivities data={userActivity} />
+          </SubContainer>
+          <SubContainer>
+            <AverageSessionDuration data={userSession} />
+            <UserPerformanceRadarChart data={userPerformance} />
+            <ScoreChart data={userData} />
+          </SubContainer>
+        </FirstContainer>
+        <SecondContainer>
+          <KeyUserData data={userData} />
+        </SecondContainer>
+      </SecondSection>
+    </Dashboard>
+  );
+};
 
 export default ProfilePage;

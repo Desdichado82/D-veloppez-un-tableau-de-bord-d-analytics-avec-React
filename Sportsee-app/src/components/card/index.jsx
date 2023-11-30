@@ -14,20 +14,20 @@ const CardWrapper = styled.div`
   align-items:center;
   background: #FBFBFB;
   gap:1rem;
-  padding: 10px;
+  padding-left: 2rem;
   margin: 10px;
-  border: 1px solid #ccc;
   border-radius: 5px;
   height: 124px;
 `;
 
 const UserDataLabel = styled.p`
-  margin-bottom: 8px;
+  margin:0px;
   color:#74798C;
 `;
 
-const UserDataValue = styled.h4`
-  margin: 0;
+const UserDataValue = styled.h3`
+  margin: 0px;
+  padding:0px;
 `;
 
 const IconWrapper = styled.span`
@@ -65,7 +65,7 @@ const Card = ({ keyData }) => {
         // Remove "Count" from the key name
         const keyName = key.replace('Count', 's');
         const { icon, color, backgroundColor } = getIconAndColor(keyName);
-        console.log('Icon:', icon); // Add this line
+       
 
         const getMeasurementText = (key) => {
             switch (key.toLowerCase()) {

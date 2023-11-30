@@ -9,8 +9,7 @@ import {
     ResponsiveContainer,
     ReferenceArea
   } from 'recharts';
-import { useState, useEffect } from 'react';
-import { fetchUserSession } from '../../services/api';
+
 
 
 

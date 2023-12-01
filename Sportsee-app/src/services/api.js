@@ -6,6 +6,10 @@ import {
   USER_PERFORMANCE,
 } from '../data/mockData.js';
 
+import {
+  formatDailyActivitiesData,formatAverageSessionDurationData,formatUserPerformanceRadarChartData
+} from '../services/format.js';
+
 // This function fetches data from a given endpoint using the Fetch API.
 export async function fetchDataFromEndpoint(endpoint) {
   try {
@@ -47,16 +51,25 @@ export async function fetchUserData(userId) {
 // This function fetches user activity data from either the API endpoint or mock data.
 export async function fetchUserActivity(userId) {
   const stringUserId = String(userId); // Convert userId to string
-  
+
   try {
     // Fetch data from the API endpoint
     const endpoint = `http://localhost:3000/user/${stringUserId}/activity`;
-    return await fetchDataFromEndpoint(endpoint);
-  } catch(error) {
+    const data = await fetchDataFromEndpoint(endpoint);
+    // Format the data using the format function
+    const formattedData = formatDailyActivitiesData(data);
+    console.log(' the formatted data ', formattedData);
+    // Return the formatted data
+    return formattedData;
+  } catch (error) {
     // Fetch mock data
-    return fetchMockUserActivity (stringUserId);
+    const data = fetchMockUserActivity(stringUserId);
+    // Format the data using the format function
+    const formattedData = formatDailyActivitiesData(data);
+    console.log('this is line reformatted data', formattedData);
+    // Return the formatted data
+    return formattedData;
   }
-  
 }
 
 // This function fetches user session data from either the API endpoint or mock data.
@@ -65,10 +78,16 @@ export async function fetchUserSession(userId) {
   try{
     // Fetch data from the API endpoint
     const endpoint = `http://localhost:3000/user/${stringUserId}/average-sessions`;
-    return await fetchDataFromEndpoint(endpoint);
+    const data = await fetchDataFromEndpoint(endpoint);
+    const formattedData = formatAverageSessionDurationData(data);
+    console.log(' the formatted data ', formattedData);
+    // Return the formatted data
+    return formattedData;
   } catch(error) {
     // Fetch mock data
-    return fetchMockUserSession(stringUserId);
+    const data = fetchMockUserSession(stringUserId);
+    const formattedData = formatAverageSessionDurationData(data);
+    return formattedData;
   }
 }
 
@@ -78,10 +97,14 @@ export async function fetchUserPerformance(userId) {
   try {
     // Fetch data from the API endpoint
     const endpoint = `http://localhost:3000/user/${stringUserId}/performance`;
-    return await fetchDataFromEndpoint(endpoint);
+    const data = await fetchDataFromEndpoint(endpoint);
+    const formattedData = formatUserPerformanceRadarChartData(data);
+    return formattedData;
   } catch(error) {
     // Fetch mock data
-    return fetchMockUserPerformance(stringUserId);
+    const data = fetchMockUserPerformance(stringUserId);
+    const formattedData = formatUserPerformanceRadarChartData(data);
+    return formattedData;
   }
 }
 

@@ -25,22 +25,13 @@ const CustomTooltip = ({ active, payload }) => {
 
 
 function DailyActivities({ data }) {
-  // Check if the data prop is in the expected format
-  console.log(' this the activity data ',data);
-  if (data && data.data.sessions && Array.isArray(data.data.sessions)) {
-    // Map the session data to a format suitable for display
-    const formattedData = data.data.sessions.map((session, index) => ({
-      day: (index + 1).toString(), // Convert index to a sequential day
-      kilogram: session.kilogram,
-      calories: session.calories,
-    }));
 
-    console.log( 'this is the formatted data', formattedData);
+    console.log('activity data:', data);
 
     return (
       <ResponsiveContainer width="100%" height="100%">
         <RechartsBarChart
-          data={formattedData}
+          data={data}
           margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
           style={{ backgroundColor: '#FBFBFB', borderRadius: 5 }}
         >
@@ -57,35 +48,9 @@ function DailyActivities({ data }) {
         </RechartsBarChart>
       </ResponsiveContainer>
     );
-  } else {
-    console.error('Data format is incorrect:', data);
-    return null;
-  }
+ 
 }
 
-// Prop validation using PropTypes
-DailyActivities.propTypes = {
-  data: PropTypes.shape({
-    sessions: PropTypes.arrayOf(
-      PropTypes.shape({
-        kilogram: PropTypes.number,
-        calories: PropTypes.number,
-      })
-    ),
-  }).isRequired,
-};
-
-CustomTooltip.propTypes = {
-  active: PropTypes.bool,
-  payload: PropTypes.arrayOf(
-    PropTypes.shape({
-      payload: PropTypes.shape({
-        kilogram: PropTypes.number,
-        calories: PropTypes.number,
-      }),
-    })
-  ),
-};
 
 export default DailyActivities;
 

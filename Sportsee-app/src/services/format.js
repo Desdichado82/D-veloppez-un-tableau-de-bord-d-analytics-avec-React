@@ -79,10 +79,10 @@
   // This function formats the data for the ScoreChart component
   export function formatScoreChartData(data) {
     // Check if the data object has a score or a todayScore property that is a number
-    if (data && (data.score || data.todayScore)) {
+    if (data && (data.data.score || data.data.todayScore)) {
       // Get the user score from the data object
       // Assuming todayScore is a percentage value between 0 and 1
-      const userScore = data.score ?? data.todayScore;
+      const userScore = data.data.score ?? data.data.todayScore;
   
       // Convert the percentage to a whole number
       let todayScoreWholeNumber;
@@ -105,6 +105,7 @@
       ];
   
       // Return the formatted data array
+      console.log('this is the scoreChart data', formattedData);
       return formattedData;
     } else {
       // Throw an error if the data format is incorrect

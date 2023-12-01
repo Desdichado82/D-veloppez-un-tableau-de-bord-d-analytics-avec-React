@@ -77,7 +77,7 @@ const ProfilePage = () => {
   // Get the location object from the useLocation hook
   const location = useLocation();
   // Get the data from the state object
-  const { userData, userActivity, userSession, userPerformance } = location.state;
+  const { userData, userActivity, userSession, userPerformance,userScore } = location.state;
   // Use the data to render the profile page
   return (
     <Dashboard>
@@ -92,7 +92,7 @@ const ProfilePage = () => {
           <SubContainer>
             <AverageSessionDuration data={userSession} />
             <UserPerformanceRadarChart data={userPerformance} />
-            <ScoreChart data={userData} />
+            <ScoreChart data={userScore} />
           </SubContainer>
         </FirstContainer>
         <SecondContainer>

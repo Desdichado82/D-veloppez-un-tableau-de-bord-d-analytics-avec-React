@@ -6,6 +6,7 @@ import {
   fetchUserActivity,
   fetchUserSession,
   fetchUserPerformance,
+  fetchUserScoreData
 } from '/src/services/api.js';
 import GymSlider from '/src/components/gymSlider'; // Adjust the path based on your project structure
 import ProfileCard from '/src/components/profileCard'; // Adjust the path based on your project structure
@@ -77,13 +78,14 @@ const HomePage = ()=>{
       const userActivity = await fetchUserActivity(id);
       const userSession = await fetchUserSession(id);
       const userPerformance = await fetchUserPerformance(id);
+      const userScore = await fetchUserScoreData(id);
       // Log the fetched data to the console
     console.log('userData:', userData);
     console.log('userActivity:', userActivity);
     console.log('userSession:', userSession);
     console.log('userPerformance:', userPerformance);
       // Navigate to the profile page with the fetched data
-      navigate(`/profile/${id}`, { state: { userData, userActivity, userSession, userPerformance } });
+      navigate(`/profile/${id}`, { state: { userData, userActivity, userSession, userPerformance,userScore } });
     };
   
     return (

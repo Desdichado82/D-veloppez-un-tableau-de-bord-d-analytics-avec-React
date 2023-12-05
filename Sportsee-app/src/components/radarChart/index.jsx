@@ -19,10 +19,18 @@ console.log('radar data:', data);
           data={data}
           style={{ backgroundColor: '#282D30', borderRadius: 5 }}
         >
-          <PolarGrid />
+         <PolarGrid
+          gridType="polygon"
+          
+          radialLines={false}
+          />
           <PolarAngleAxis
-            dataKey="kind"
-            tick={{ fontSize: 12, fill: '#FFFFFF' /* Set your desired font size here */ }}
+                dataKey="kind"
+                type="category"
+                domain={['A', 'B', 'C', 'D']}
+                tick={{ fontSize: 12, fill: '#FFFFFF' }}
+                tickCount={4}
+                axisLine={false}
           />
           <Radar name="Performance" dataKey="value" fill="#E60000" fillOpacity={0.6} />
         </RadarChart>

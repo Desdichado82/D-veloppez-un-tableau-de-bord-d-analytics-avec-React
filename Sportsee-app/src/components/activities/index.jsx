@@ -24,6 +24,27 @@ const CustomTooltip = ({ active, payload }) => {
 
 
 
+function renderLegend(props) {
+  const { payload } = props;
+
+  return (
+    <ul className="recharts-default-legend" style={{ padding: 0, margin: 0, textAlign: 'right' }}>
+      {payload.map((entry, index) => (
+        <li key={`item-${index}`} className={`recharts-legend-item legend-item-${index}`} style={{ display: 'inline-block', marginRight: 10 }}>
+          <svg className="recharts-surface" width="14" height="14" viewBox="0 0 32 32" style={{ display: 'inline-block', verticalAlign: 'middle', marginRight: 4 }}>
+            <path fill={entry.color} cx="16" cy="16" className="recharts-symbols" transform="translate(16, 16)" d="M16,0A16,16,0,1,1,-16,0A16,16,0,1,1,16,0"></path>
+          </svg>
+          <span className="recharts-legend-item-text" style={{ color: entry.color }}>
+            {entry.value === 'kilogram' ? 'Poids (kg)' : 'Calories brûlées (kCal)'}
+          </span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+
+
 function DailyActivities({ data }) {
 
     console.log('activity data:', data);
@@ -42,7 +63,7 @@ function DailyActivities({ data }) {
           <YAxis orientation="right" dataKey="calories" />
           <CartesianGrid strokeDasharray="3 3" />
           <Tooltip className="custom-tooltip" content={CustomTooltip} />
-          <Legend verticalAlign="top" align="right" height={40} iconType="circle" />
+          <Legend verticalAlign="top" align="right" height={40} iconType="circle" content={renderLegend} />
           <Bar dataKey="kilogram" fill="#282D30" barSize={12} radius={[5, 5, 0, 0]} />
           <Bar dataKey="calories" fill="#E60000" barSize={12} radius={[5, 5, 0, 0]} />
         </RechartsBarChart>

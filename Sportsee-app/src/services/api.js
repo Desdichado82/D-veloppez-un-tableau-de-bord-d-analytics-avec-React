@@ -6,10 +6,14 @@ import {
   USER_PERFORMANCE,
 } from '../data/mockData.js';
 
-import {
-  formatDailyActivitiesData,formatAverageSessionDurationData,formatUserPerformanceRadarChartData,formatScoreChartData
-} from '../services/format.js';
+// Import your classes
+import { DailyActivities, AverageSessionDuration, UserPerformanceRadarChart, ScoreChart } from './format.js'; // replace 'your-class-file' with the actual file name
 
+// Create instances of the classes
+const dailyActivities = new DailyActivities();
+const averageSessionDuration = new AverageSessionDuration();
+const userPerformanceRadarChart = new UserPerformanceRadarChart();
+const scoreChart = new ScoreChart();
 // This function fetches data from a given endpoint using the Fetch API.
 export async function fetchDataFromEndpoint(endpoint) {
   try {
@@ -46,8 +50,6 @@ export async function fetchUserData(userId) {
   }
 }
 
-
-
 // This function fetches user activity data from either the API endpoint or mock data.
 export async function fetchUserActivity(userId) {
   const stringUserId = String(userId); // Convert userId to string
@@ -56,16 +58,16 @@ export async function fetchUserActivity(userId) {
     // Fetch data from the API endpoint
     const endpoint = `http://localhost:3000/user/${stringUserId}/activity`;
     const data = await fetchDataFromEndpoint(endpoint);
-    // Format the data using the format function
-    const formattedData = formatDailyActivitiesData(data);
+    // Format the data using the formatData method of the DailyActivities class
+    const formattedData = dailyActivities.formatData(data);
     console.log(' the formatted data ', formattedData);
     // Return the formatted data
     return formattedData;
   } catch (error) {
     // Fetch mock data
     const data = fetchMockUserActivity(stringUserId);
-    // Format the data using the format function
-    const formattedData = formatDailyActivitiesData(data);
+    // Format the data using the formatData method of the DailyActivities class
+    const formattedData = dailyActivities.formatData(data);
     console.log('this is line reformatted data', formattedData);
     // Return the formatted data
     return formattedData;
@@ -79,14 +81,14 @@ export async function fetchUserSession(userId) {
     // Fetch data from the API endpoint
     const endpoint = `http://localhost:3000/user/${stringUserId}/average-sessions`;
     const data = await fetchDataFromEndpoint(endpoint);
-    const formattedData = formatAverageSessionDurationData(data);
+    const formattedData = averageSessionDuration.formatData(data);
     console.log(' the formatted data ', formattedData);
     // Return the formatted data
     return formattedData;
   } catch(error) {
     // Fetch mock data
     const data = fetchMockUserSession(stringUserId);
-    const formattedData = formatAverageSessionDurationData(data);
+    const formattedData = averageSessionDuration.formatData(data);
     return formattedData;
   }
 }
@@ -98,32 +100,32 @@ export async function fetchUserPerformance(userId) {
     // Fetch data from the API endpoint
     const endpoint = `http://localhost:3000/user/${stringUserId}/performance`;
     const data = await fetchDataFromEndpoint(endpoint);
-    const formattedData = formatUserPerformanceRadarChartData(data);
+    const formattedData = userPerformanceRadarChart.formatData(data);
     return formattedData;
   } catch(error) {
     // Fetch mock data
     const data = fetchMockUserPerformance(stringUserId);
-    const formattedData = formatUserPerformanceRadarChartData(data);
+    const formattedData = userPerformanceRadarChart.formatData(data);
     return formattedData;
   }
 }
 
 export async function fetchUserScoreData(userId) {
   const stringUserId = String(userId); // Convert userId to string
-  // Try to fetch data from the endpoint first
   try {
-    const endpoint = `http://localhost:3000/user/${stringUserId}`;
+    // Fetch data from the API endpoint
+    const endpoint = `http://localhost:3000/user/${stringUserId}/score`;
     const data = await fetchDataFromEndpoint(endpoint);
-    console.log('fetchscore data' ,data);
-    const formattedData = formatScoreChartData(data);
+    const formattedData = scoreChart.formatData(data);
     return formattedData;
-  } catch (error) {
-    // If the endpoint fails, fetch data from the mock data
+  } catch(error) {
+    // Fetch mock data
     const data = fetchMockUserData(stringUserId);
-    const formattedData = formatScoreChartData(data);
+    const formattedData = scoreChart.formatData(data);
     return formattedData;
   }
 }
+
 
 
 const fetchMockUserData = (userId) => {

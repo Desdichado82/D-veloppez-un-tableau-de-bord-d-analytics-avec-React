@@ -1,69 +1,69 @@
-Développez un tableau de bord d'analytics avec React
+Développez un tableau de bord d'analytique avec React
 
 ---
 
-# Sportsee Application Documentation
+# Documentation de l'application Sportsee
 
-## Overview
+## Aperçu
 
-This document provides an overview of the frontend project named Sportsee Application. The project is a React application that interacts with a backend API to display user profiles and related data.
+Ce document fournit un aperçu du projet frontend appelé Application Sportsee. Le projet est une application React qui interagit avec une API backend pour afficher les profils d'utilisateurs et les données associées.
 
-## Table of Contents
+## Table des matières
 
-1. [Project Structure](#project-structure)
-2. [API Endpoints](#api-endpoints)
-3. [Rechart Components](#rechart-components)
+1. [Structure du Projet](#structure-du-projet)
+2. [Points d'API](#points-dapi)
+3. [Composants Rechart](#composants-rechart)
 
-## Project Structure
+## Structure du Projet
 
-The project follows a modular structure to enhance maintainability and readability. Here is a brief description of the key directories:
+Le projet suit une structure modulaire pour améliorer la maintenabilité et la lisibilité. Voici une brève description des répertoires clés :
 
-- **`src/components`**: Contains React components used throughout the application.
-- **`src/data`**: Includes mock data used for development and testing.
-- **`src/pages`**: Houses different pages of the application (e.g., Home, Profile).
-- **`src/services`**: Contains utility functions and services, including API interaction.
+- **`src/components`**: Contient les composants React utilisés dans toute l'application.
+- **`src/data`**: Inclut des données fictives utilisées pour le développement et les tests.
+- **`src/pages`**: Contient différentes pages de l'application (par exemple, Accueil, Profil).
+- **`src/services`**: Contient des fonctions utilitaires et des services, y compris l'interaction avec l'API.
 
-## API Endpoints
+## Points d'API
 
-The application interacts with the backend API to retrieve user data. Below are the main API endpoints used:
+L'application interagit avec l'API backend pour récupérer les données utilisateur. Voici les principaux points d'API utilisés :
 
-1. **User Data Endpoint**
-   - **Endpoint**: `/user/:id`
-   - **Description**: Fetches basic user information based on the provided user ID.
+1. **Point de Données Utilisateur**
+   - **Point d'accès**: `/user/:id`
+   - **Description**: Récupère les informations utilisateur de base en fonction de l'ID utilisateur fourni.
 
-2. **User Activity Endpoint**
-   - **Endpoint**: `/user/:id/activity`
-   - **Description**: Retrieves user activity data, including relevant metrics and charts.
+2. **Point d'Activité Utilisateur**
+   - **Point d'accès**: `/user/:id/activity`
+   - **Description**: Récupère les données d'activité utilisateur, y compris les indicateurs pertinents et les graphiques.
 
-3. **User Session Endpoint**
-   - **Endpoint**: `/user/:id/average-sessions`
-   - **Description**: Fetches data related to average session durations for a specific user.
+3. **Point de Session Utilisateur**
+   - **Point d'accès**: `/user/:id/average-sessions`
+   - **Description**: Récupère les données relatives aux durées moyennes de session pour un utilisateur spécifique.
 
-4. **User Performance Endpoint**
-   - **Endpoint**: `/user/:id/performance`
-   - **Description**: Retrieves user performance metrics, providing insights into user engagement.
+4. **Point de Performance Utilisateur**
+   - **Point d'accès**: `/user/:id/performance`
+   - **Description**: Récupère les métriques de performance utilisateur, fournissant des informations sur l'engagement de l'utilisateur.
 
-## Rechart Components
+## Composants Rechart
 
-The project utilizes Recharts, a React charting library, to visualize data. Below are the key Rechart components employed:
+Le projet utilise Recharts, une bibliothèque de graphiques React, pour visualiser les données. Voici les principaux composants Rechart utilisés :
 
 1. **LineChart**
-   - **Description**: Displays data trends over time, commonly used for visualizing user activity or performance changes.
+   - **Description**: Affiche les tendances des données au fil du temps, couramment utilisé pour visualiser l'activité ou les changements de performance des utilisateurs.
 
 2. **BarChart**
-   - **Description**: Represents data in a bar format, suitable for showcasing metrics like average session durations.
+   - **Description**: Représente les données sous forme de barres, adapté pour présenter des métriques telles que les durées moyennes de session.
 
 3. **PieChart**
-   - **Description**: Visualizes data in a circular graph, helpful for illustrating data distribution, such as user demographics.
+   - **Description**: Visualise les données dans un graphique circulaire, utile pour illustrer la distribution des données, comme la démographie des utilisateurs.
 
 4. **ResponsiveContainer**
-   - **Description**: A wrapper component that automatically adjusts its dimensions based on the screen size, ensuring responsiveness.
+   - **Description**: Un composant enveloppe qui ajuste automatiquement ses dimensions en fonction de la taille de l'écran, assurant la réactivité.
 
 ## Conclusion
 
-This documentation provides a high-level overview of the frontend project, including its structure, API endpoints, and Rechart components. Developers are encouraged to explore the source code for more detailed information.
+Cette documentation offre un aperçu global du projet frontend, y compris sa structure, ses points d'API et ses composants Rechart. Les développeurs sont encouragés à explorer le code source pour des informations plus détaillées.
 
-For contributions and bug reporting, please refer to the project's [GitHub repository](https://github.com/Desdichado82/D-veloppez-un-tableau-de-bord-d-analytics-avec-React).
+Pour les contributions et les signalements de bugs, veuillez consulter le [dépôt GitHub](https://github.com/Desdichado82/D-veloppez-un-tableau-de-bord-d-analytics-avec-React) du projet.
 
 ---
 

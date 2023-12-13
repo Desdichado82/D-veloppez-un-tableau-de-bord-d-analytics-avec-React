@@ -1,3 +1,5 @@
+
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -5,15 +7,13 @@ import { faFire, faDrumstickBite, faAppleWhole, faBurger } from '@fortawesome/fr
 
 library.add(faFire, faDrumstickBite, faAppleWhole, faBurger);
 
-
-
-
+// Styled components for styling the Card component
 const CardWrapper = styled.div`
-  display:flex;
-  justify-content:start;
-  align-items:center;
+  display: flex;
+  justify-content: start;
+  align-items: center;
   background: #FBFBFB;
-  gap:1rem;
+  gap: 1rem;
   padding-left: 2rem;
   margin: 10px;
   border-radius: 5px;
@@ -21,13 +21,13 @@ const CardWrapper = styled.div`
 `;
 
 const UserDataLabel = styled.p`
-  margin:0px;
-  color:#74798C;
+  margin: 0px;
+  color: #74798C;
 `;
 
 const UserDataValue = styled.h3`
   margin: 0px;
-  padding:0px;
+  padding: 0px;
 `;
 
 const IconWrapper = styled.span`
@@ -39,6 +39,7 @@ const IconWrapper = styled.span`
   align-items: center;
 `;
 
+// Function to get the icon and color based on the key
 const getIconAndColor = (key) => {
   switch (key.toLowerCase()) {
     case 'calories':
@@ -54,52 +55,53 @@ const getIconAndColor = (key) => {
   }
 };
 
-
+// Card component receives keyData as prop and renders data cards
 const Card = ({ keyData }) => {
-    if (!keyData) {
-      return null; // Return early if keyData is not available
-    }
-  
-    const renderCards = () => {
-      return Object.entries(keyData).map(([key, value]) => {
-        // Remove "Count" from the key name
-        const keyName = key.replace('Count', 's');
-        const { icon, color, backgroundColor } = getIconAndColor(keyName);
-       
+  if (!keyData) {
+    return null; // Return early if keyData is not available
+  }
 
-        const getMeasurementText = (key) => {
-            switch (key.toLowerCase()) {
-              case 'calories':
-                return 'kCal';
-              default:
-                return 'g';
-            }
-        };
+  // Function to render individual data cards based on keyData
+  const renderCards = () => {
+    return Object.entries(keyData).map(([key, value]) => {
+      // Remove "Count" from the key name
+      const keyName = key.replace('Count', 's');
+      const { icon, color, backgroundColor } = getIconAndColor(keyName);
 
-   
-        
-        return (
-            <CardWrapper  key={key} >
-              <IconWrapper style={{ backgroundColor }}>
+      // Function to get measurement text based on the key
+      const getMeasurementText = (key) => {
+        switch (key.toLowerCase()) {
+          case 'calories':
+            return 'kCal';
+          default:
+            return 'g';
+        }
+      };
+
+      return (
+        <CardWrapper key={key}>
+          <IconWrapper style={{ backgroundColor }}>
             {icon && <FontAwesomeIcon icon={icon} style={{ color }} />}
           </IconWrapper>
-                <div>
-                    <UserDataValue>{value}{getMeasurementText(keyName)}</UserDataValue>
-                    <UserDataLabel>{keyName}</UserDataLabel>
-                
-                </div>
-            </CardWrapper>
-         
-           
-         
-        );
-      });
-    };
-  
-    return renderCards();
+          <div>
+            <UserDataValue>{value}{getMeasurementText(keyName)}</UserDataValue>
+            <UserDataLabel>{keyName}</UserDataLabel>
+          </div>
+        </CardWrapper>
+      );
+    });
   };
 
-  export default Card;
+  return renderCards();
+};
+
+// PropTypes for type-checking the props passed to Card
+Card.propTypes = {
+  keyData: PropTypes.object.isRequired,
+};
+
+export default Card;
+
 
 
 

@@ -14,7 +14,12 @@ const dailyActivities = new DailyActivities();
 const averageSessionDuration = new AverageSessionDuration();
 const userPerformanceRadarChart = new UserPerformanceRadarChart();
 const scoreChart = new ScoreChart();
-// This function fetches data from a given endpoint using the Fetch API.
+
+/**
+ * Fetches data from a given endpoint using the Fetch API.
+ * @param {string} endpoint - The endpoint to fetch data from.
+ * @returns {Promise<any>} - A promise that resolves to the parsed data.
+ */
 export async function fetchDataFromEndpoint(endpoint) {
   try {
     // Fetch data from the endpoint.
@@ -38,6 +43,11 @@ export async function fetchDataFromEndpoint(endpoint) {
   }
 }
 
+/**
+ * Fetches user data from either the API endpoint or mock data.
+ * @param {number} userId - The ID of the user to fetch data for.
+ * @returns {Promise<any>} - A promise that resolves to the user data.
+ */
 export async function fetchUserData(userId) {
   const stringUserId = String(userId); // Convert userId to string
   // Try to fetch data from the endpoint first
@@ -50,7 +60,11 @@ export async function fetchUserData(userId) {
   }
 }
 
-// This function fetches user activity data from either the API endpoint or mock data.
+/**
+ * Fetches user activity data from either the API endpoint or mock data.
+ * @param {number} userId - The ID of the user to fetch activity data for.
+ * @returns {Promise<any>} - A promise that resolves to the formatted user activity data.
+ */
 export async function fetchUserActivity(userId) {
   const stringUserId = String(userId); // Convert userId to string
 
@@ -60,7 +74,7 @@ export async function fetchUserActivity(userId) {
     const data = await fetchDataFromEndpoint(endpoint);
     // Format the data using the formatData method of the DailyActivities class
     const formattedData = dailyActivities.formatData(data);
-    console.log(' the formatted data ', formattedData);
+   
     // Return the formatted data
     return formattedData;
   } catch (error) {
@@ -68,21 +82,24 @@ export async function fetchUserActivity(userId) {
     const data = fetchMockUserActivity(stringUserId);
     // Format the data using the formatData method of the DailyActivities class
     const formattedData = dailyActivities.formatData(data);
-    console.log('this is line reformatted data', formattedData);
     // Return the formatted data
     return formattedData;
   }
 }
 
-// This function fetches user session data from either the API endpoint or mock data.
+/**
+ * Fetches user session data from either the API endpoint or mock data.
+ * @param {number} userId - The ID of the user to fetch session data for.
+ * @returns {Promise<any>} - A promise that resolves to the formatted user session data.
+ */
 export async function fetchUserSession(userId) {
   const stringUserId = String(userId); // Convert userId to string
-  try{
+  try {
     // Fetch data from the API endpoint
     const endpoint = `http://localhost:3000/user/${stringUserId}/average-sessions`;
     const data = await fetchDataFromEndpoint(endpoint);
     const formattedData = averageSessionDuration.formatData(data);
-    console.log(' the formatted data ', formattedData);
+   
     // Return the formatted data
     return formattedData;
   } catch(error) {
@@ -93,7 +110,11 @@ export async function fetchUserSession(userId) {
   }
 }
 
-// This function fetches user performance data from either the API endpoint or mock data.
+/**
+ * Fetches user performance data from either the API endpoint or mock data.
+ * @param {number} userId - The ID of the user to fetch performance data for.
+ * @returns {Promise<any>} - A promise that resolves to the formatted user performance data.
+ */
 export async function fetchUserPerformance(userId) {
   const stringUserId = String(userId); // Convert userId to string
   try {
@@ -110,6 +131,11 @@ export async function fetchUserPerformance(userId) {
   }
 }
 
+/**
+ * Fetches user score data from either the API endpoint or mock data.
+ * @param {number} userId - The ID of the user to fetch score data for.
+ * @returns {Promise<any>} - A promise that resolves to the formatted user score data.
+ */
 export async function fetchUserScoreData(userId) {
   const stringUserId = String(userId); // Convert userId to string
   try {
@@ -126,8 +152,12 @@ export async function fetchUserScoreData(userId) {
   }
 }
 
-
-
+/**
+ * Fetches user data from mock data based on the provided userId.
+ * @param {number} userId - The ID of the user to fetch mock data for.
+ * @returns {Object} - An object containing the user data.
+ * @throws {Error} - Throws an error if the user is not found in the mock data.
+ */
 const fetchMockUserData = (userId) => {
   const userIndex = USER_MAIN_DATA.findIndex((user) => user.id === Number(userId));
 
@@ -145,6 +175,12 @@ const fetchMockUserData = (userId) => {
   throw new Error('User not found in mock data');
 };
 
+/**
+ * Fetches user activity data from mock data based on the provided userId.
+ * @param {number} userId - The ID of the user to fetch mock activity data for.
+ * @returns {Object} - An object containing the user activity data.
+ * @throws {Error} - Throws an error if the user activity is not found in the mock data.
+ */
 const fetchMockUserActivity = (userId) => {
   const userIndex = USER_ACTIVITY.findIndex((user) => user.userId === Number(userId));
   console.log('this is the userIndex:', userIndex);
@@ -163,6 +199,12 @@ const fetchMockUserActivity = (userId) => {
   throw new Error('User not found in mock data');
 };
 
+/**
+ * Fetches user session data from mock data based on the provided userId.
+ * @param {number} userId - The ID of the user to fetch mock session data for.
+ * @returns {Object} - An object containing the user session data.
+ * @throws {Error} - Throws an error if the user session is not found in the mock data.
+ */
 const fetchMockUserSession = (userId) => {
   const userIndex = USER_AVERAGE_SESSIONS.findIndex((user) => user.userId === Number(userId));
 
@@ -180,6 +222,12 @@ const fetchMockUserSession = (userId) => {
   throw new Error('User not found in mock data');
 };
 
+/**
+ * Fetches user performance data from mock data based on the provided userId.
+ * @param {number} userId - The ID of the user to fetch mock performance data for.
+ * @returns {Object} - An object containing the user performance data.
+ * @throws {Error} - Throws an error if the user performance is not found in the mock data.
+ */
 const fetchMockUserPerformance = (userId) => {
   const userIndex = USER_PERFORMANCE.findIndex((user) => user.userId === Number(userId));
 
@@ -196,6 +244,7 @@ const fetchMockUserPerformance = (userId) => {
 
   throw new Error('User not found in mock data');
 };
+
 
 
 /*

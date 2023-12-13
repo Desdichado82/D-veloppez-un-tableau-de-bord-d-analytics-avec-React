@@ -1,5 +1,4 @@
-
-
+import PropTypes from 'prop-types';
 import Card from '/src/components/card';
 
 const KeyUserData = ({ data }) => {
@@ -15,6 +14,15 @@ const KeyUserData = ({ data }) => {
     console.error('Data format is incorrect:', data);
     return null;
   }
+};
+
+KeyUserData.propTypes = {
+  data: PropTypes.shape({
+    data: PropTypes.shape({
+      keyData: PropTypes.object.isRequired,
+      // Add other expected properties here
+    }).isRequired,
+  }),
 };
 
 export default KeyUserData;
